@@ -1,17 +1,12 @@
 #!/bin/sh
 
-readonly JENA_DIR="/opt/jena/"
+readonly JENA_DIR="/opt/jena"
 readonly JENA_SRC="http://ftp.jaist.ac.jp/pub/apache//jena/binaries/apache-jena-2.11.1.tar.gz"
+readonly JENA_LIB="`echo $JENA_SRC | sed -e 's/.*\///g'`"
 
-install_jena() {
+if [ ! -e $JENA_DIR ]; then
     sudo wget $JENA_SRC -P $JENA_DIR
-}
-
-if [ -e $JENA_DIR ]; then
-    echo "$JENA_DIR exists."
-else
-    echo "$JENA_DIR does not exist."
-    install_jena
+    sudo tar zxvf $JENA_DIR/$JENA_LIB -C $JENA_DIR
 fi
 
 # end of file
